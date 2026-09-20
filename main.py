@@ -3,6 +3,10 @@ import time
 import machine
 import requests
 
+# mobile data
+# WIFI_SSID = "AndroidAP"
+# WIFI_PASSWORD = "trsr0372" 
+
 WIFI_SSID = "Ziggo3814574"
 WIFI_PASSWORD = "kEjbrrbFhxjfptt7"
 API_URL = "http://192.168.178.198:8000/temperature"
