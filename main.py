@@ -4,12 +4,12 @@ import machine
 import requests
 
 # mobile data
-# WIFI_SSID = "AndroidAP"
-# WIFI_PASSWORD = "trsr0372" 
+WIFI_SSID = "AndroidAP"
+WIFI_PASSWORD = "trsr0372" 
 
-WIFI_SSID = "Ziggo3814574"
-WIFI_PASSWORD = "kEjbrrbFhxjfptt7"
-API_URL = "http://192.168.178.198:8000/temperature"
+# WIFI_SSID = "Ziggo3814574"
+# WIFI_PASSWORD = "kEjbrrbFhxjfptt7"
+API_URL = "https://picoapi.onrender.com/temperature"
 
 led = machine.Pin("LED", machine.Pin.OUT)
 
@@ -33,12 +33,13 @@ print("IP address:", wlan.ifconfig()[0])
 led.on()
 
 while True:
+    led.on()
     reading = sensor.read_u16() * conversion_factor
     temperature = 27 - (reading - 0.706) / 0.001721
     temperature = round(temperature, 2)
 
     print("Temperature:", temperature, "°C")
-    print("Sending to API...")
+    print("Sending to cloud API...")
 
     try:
         response = requests.post(
@@ -55,6 +56,7 @@ while True:
         response.close()
 
     except Exception as e:
-        print("API request failed:", e)
+            print("API request failed:", e)
 
+    led.off()
     time.sleep(5)
